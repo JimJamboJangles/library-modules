@@ -1,40 +1,57 @@
 var Library = function() {
-  var books = []
+  var books = [];
 
   var addBook = function(book) {
     books.push(book);
+  };
 
-  }
-  var checkOutBook = function(book) {
-
-    if (Library[book]) {
-      book[checkedOut] = true;
-    } else {
-      console.log("Error");
+  var listBooks = function() {
+    for (var i = 0; i < books.length; i++) {
+      console.log(books[i].getAttribute('title'));
     }
   }
-  var returnBook = function(book) {
 
+  var checkOutBook = function(book) {
+    for (var i = 0; i < books.length; i++) {
+      if (books[i].getAttribute('title') == book.getAttribute('title')) {
+        console.log(books[i]['checkedOut']);
+        books[i].setAttribute('checkedOut', true);
+      }
+    }
+
+  };
+  var returnBook = function(book) {
+    for (var i = 0; i < books.length; i++) {
+      if (books[i].getAttribute('title') == book.getAttribute('title')) {
+
+        books[i].setAttribute('checkedOut', false);
+      }
+    }
   }
   return {
     addBook: addBook,
     returnBook: returnBook,
-    checkOutBook: checkOutBook
-  }
+    checkOutBook: checkOutBook,
+    listBooks: listBooks
+  };
 };
 
-var Book = function() {
-  var attributes {
-
-  }
-  var getAttribute = function(attribute) {
-    if (Book[attribute]) {
-      return Book[attribute];
-    }
+var Book = function(title, author) {
+  var attributes = {
+    title: title,
+    author: author,
+    checkedOut: false
   };
-  var setAttribute = function(attribute) {
-    if (Book[attribute]) {
-      Book[attribute] = attribute;
+
+  var getAttribute = function(attribute) {
+    if (attributes.hasOwnProperty(attribute)) {
+      return attributes[attribute];
+    }
+
+  };
+  var setAttribute = function(attribute, value) {
+    if (attributes.hasOwnProperty(attribute)) {
+      attributes[attribute] = value;
     }
   };
 
@@ -43,3 +60,4 @@ var Book = function() {
     setAttribute: setAttribute
   }
 };
+var library = Library();
